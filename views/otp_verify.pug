@@ -1,0 +1,5 @@
+form(method='POST' action='/otp/verify')
+  div.form-group
+    label(for='token') Token:
+    input#token.form-control(type='text', name='token')
+  button.btn.btn-primary(type='submit') Submit 

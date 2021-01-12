@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  p 
+    a(href='/otp/generate') 1. Setup new device
+  p 
+    a(href='/otp/get') 2. Get current code
+  p 
+    a(href='/otp/verify') 3. Check current code
