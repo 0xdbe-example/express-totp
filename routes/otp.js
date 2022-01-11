@@ -1,38 +1,23 @@
 var express = require('express');
 var router = express.Router();
 
-const authenticator = require('otplib').authenticator;
-
-// setting
-authenticator.options = { window: 2 };
-
 const qrcode = require('qrcode');
 
 // hardcoded secret for testing purpose (remove for production use)
-const secret = 'DFXSWOTCAQRWUDL7';
-const user = 'bob';
-const service = 'test';
+const secret = '';
+const user = '';
+const service = '';
 
 router.get('/generate', function(req, res, next) {
 
-  // Generate random secret (uncomment for production)
-  // let secret = authenticator.generateSecret();
-  // console.log(`Secret: ${secret}`);
-  const otpauth = authenticator.keyuri(user, service, secret);
+    // Send data in QRCode
+    res.render('otp_generate');
 
-  qrcode.toDataURL(otpauth, (err, imageUrl) => {
-    if (err) {
-        res.status(500);
-        res.send(err);
-    }
-    res.render('otp_generate', { imgSrc: imageUrl });
-  });
-  
 });
 
 router.get('/get', function(req, res, next) {
-  let token = authenticator.generate(secret);
-  res.send(new Date().toISOString() + ': ' + token);
+  // Send the current valid code
+  res.send("current code is: XXXXX");
 });
 
 router.get('/verify', function(req, res, next) {
@@ -41,13 +26,7 @@ router.get('/verify', function(req, res, next) {
 
 router.post('/verify', function(req, res, next) {
     let token=req.body.token;
-    
-    console.log(token);
-    console.log(secret);
-    
-    let isValid = authenticator.verify({ token, secret });
-//     isValid = authenticator.check(token, secret);
-    
+
     if (isValid){
       res.status(200);
       res.send('ok');

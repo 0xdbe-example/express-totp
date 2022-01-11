@@ -13,7 +13,7 @@ $ npm install
 - Run
 
 ````console
-$ env TZ='UTC' npm start
+$ npm start
 ````
 
 ## Setup new device
